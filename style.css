@@ -12,10 +12,10 @@ body{
 }
 
 .game-container{
-    width: 320px;
-    height: 320px;
-    border: 1px solid #ccc;
-    overflow: hidden;
+   width: 320px;
+   height: 320px;
+   border: 1px solid #ccc;
+   overflow: hidden;
 }
 
 .grid{
