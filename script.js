@@ -89,4 +89,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    function move(direction) {
+        let hasChanged = false;
+        if (direction === 'ArrowUp' || direction === 'ArrowDown') {
+            for (let j = 0; j < size; j++) {
+                const column = [...Array(size)].map((_, i) => board[i][j]);
+                const newColumn = transform(column, direction === 'ArrowUp');
+                for (let i = 0; i < size -1 ; i++) {
+                    if (board[i][j] !== newColumn[i]) {
+                        hasChanged = true;
+                        board[i][j] = newColumn[i];
+                    }
+                }
+            }
+        } else if (direction === 'ArrowLeft' || direction === 'ArrowRight') {
+            for (let i = 0; i < size; i++) {
+                const row = board[i];
+                const newRow = transform(row, direction === 'ArrowLeft');
+                if (row.join(',') !== newRow.join(',')) {
+                    hasChanged = true;
+                    board[i] = newRow;
+                }
+            }
+        }
+        if (hasChanged) {
+            placeRandom();
+            renderBoard();
+            checkGameOver();
+        }
+    }
+
+
 });
