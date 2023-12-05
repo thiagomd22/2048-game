@@ -11,3 +11,33 @@ body{
     background-color: #fafafa;
 }
 
+.game-container{
+    width: 320px;
+    height: 320px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.cell{
+    width: 77px;
+    height: 77px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #000;
+}
+
+.score-container{
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
