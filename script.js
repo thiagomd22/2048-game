@@ -5,13 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentScore = 0;
     const currentScoreElem = document.getElementById('current-score');
 
-
     let highScore = localStorage.getItem('2048-highScore') || 0;
     const highScoreElem = document.getElementById('high-score');
     highScoreElem.textContent = highScore;
 
     const gameOverElem = document.getElementById('game-over');
-
 
     function updateScore(value) {
         currentScore += value;
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     function restartGame() {
         currentScore = 0;
         currentScoreElem.textContent = '0';
@@ -31,14 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeGame();
     }
 
-
     function initializeGame() {
-        board = [...Array(size)].map(e => Array(size).fill(o));
+        board = [...Array(size)].map(e => Array(size).fill(0));
         placeRandom();
         placeRandom();
         renderBoard();
     }
-
 
     function renderBoard() {
         for (let i = 0; i < size; i++) {
@@ -49,14 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentValue !== 0) {
                     cell.dataset.value = currentValue;
                     cell.textContent = currentValue;
-
+                    
                     if (currentValue !== parseInt(prevValue) && !cell.classList.contains('new-tile')) {
-                        cell.classList.add('merged-tile', 'new-tile');
+                        cell.classList.add('merged-tile');
                     }
-                    } else {
-                        cell.textContent = '';
-                        delete cell.dataset.value;
-                        cell.classList.remove('merged-tile', 'new-tile');
+                } else {
+                    cell.textContent = '';
+                    delete cell.dataset.value;
+                    cell.classList.remove('merged-tile', 'new-tile');
                 }
             }
         }
@@ -69,25 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-
     function placeRandom() {
         const available = [];
         for (let i = 0; i < size; i++) {
             for (let j = 0; j < size; j++) {
-                if(board[i][j] === 0) {
-                    available.push({ x: i, y: j});
+                if (board[i][j] === 0) {
+                    available.push({ x: i, y: j });
                 }
             }
         }
 
         if (available.length > 0) {
-            const randomCell = available[Math.floor(Math.random() * available.leght)];
-            board[randomCell.x][randomCell.y] = Math.random < 0.9 ? 2 : 4;
+            const randomCell = available[Math.floor(Math.random() * available.length)];
+            board[randomCell.x][randomCell.y] = Math.random() < 0.9 ? 2 : 4;
             const cell = document.querySelector(`[data-row="${randomCell.x}"][data-col="${randomCell.y}"]`);
-            cell.classList.add('new-tile');
+            cell.classList.add('new-tile'); // Animation for new tiles
         }
     }
-
 
     function move(direction) {
         let hasChanged = false;
@@ -95,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let j = 0; j < size; j++) {
                 const column = [...Array(size)].map((_, i) => board[i][j]);
                 const newColumn = transform(column, direction === 'ArrowUp');
-                for (let i = 0; i < size -1 ; i++) {
+                for (let i = 0; i < size; i++) {
                     if (board[i][j] !== newColumn[i]) {
                         hasChanged = true;
                         board[i][j] = newColumn[i];
@@ -119,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     function transform(line, moveTowardsStart) {
         let newLine = line.filter(cell => cell !== 0);
         if (!moveTowardsStart) {
@@ -128,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < newLine.length - 1; i++) {
             if (newLine[i] === newLine[i + 1]) {
                 newLine[i] *= 2;
-                updateScore(newLine[i]);
+                updateScore(newLine[i]); 
                 newLine.splice(i + 1, 1);
             }
         }
@@ -141,18 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return newLine;
     }
 
-
-    function ckeckGameOver() {
+    function checkGameOver() {
         for (let i = 0; i < size; i++) {
             for (let j = 0; j < size; j++) {
                 if (board[i][j] === 0) {
-                    return;
+                    return; 
                 }
                 if (j < size - 1 && board[i][j] === board[i][j + 1]) {
-                    return;
+                    return; 
                 }
                 if (i < size - 1 && board[i][j] === board[i + 1][j]) {
-                    return;
+                    return; 
                 }
             }
         }
@@ -161,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', event => {
-        if ([ 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
             move(event.key);
         }
     });
