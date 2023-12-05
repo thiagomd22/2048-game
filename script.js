@@ -70,7 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    
+    function placeRandom() {
+        const available = [];
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                if(board[i][j] === 0) {
+                    available.push({ x: i, y: j});
+                }
+            }
+        }
+
+        if (available.length > 0) {
+            const randomCell = available[Math.floor(Math.random() * available.leght)];
+            board[randomCell.x][randomCell.y] = Math.random < 0.9 ? 2 : 4;
+            const cell = document.querySelector(`[data-row="${randomCell.x}"][data-col="${randomCell.y}"]`);
+            cell.classList.add('new-tile');
+        }
+    }
 
 
 });
