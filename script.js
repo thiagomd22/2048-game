@@ -160,5 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
         gameOverElem.style.display = 'flex';
     }
 
+    document.addEventListener('keydown', event => {
+        if ([ 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+            move(event.key);
+        }
+    });
+    document.getElementById('restart-btn').addEventListener('click', restartGame);
+
+    initializeGame();
 
 });
