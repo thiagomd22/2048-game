@@ -112,3 +112,11 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.grid-cell[data-value]{
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.new-tile{
+    animation: appear 0.3s;
+}
