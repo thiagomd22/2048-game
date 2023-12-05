@@ -142,4 +142,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    function ckeckGameOver() {
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                if (board[i][j] === 0) {
+                    return;
+                }
+                if (j < size - 1 && board[i][j] === board[i][j + 1]) {
+                    return;
+                }
+                if (i < size - 1 && board[i][j] === board[i + 1][j]) {
+                    return;
+                }
+            }
+        }
+
+        gameOverElem.style.display = 'flex';
+    }
+
+
 });
